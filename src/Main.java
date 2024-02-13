@@ -7,19 +7,44 @@ public class Main {
     public static void main(String[] args) {
         final byte Months_In_YEAR = 12;
         final byte PERCENT = 100;
+        int principal ;
+        float monthlyInterest;
+        int numberOfPayments;
 
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Principal:");
-        int principal =input.nextInt();
 
-        System.out.println("Annual Intrest Rate: ");
-        float annualInterest = input.nextFloat();
-        float monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
+        while(true){
+            System.out.println("Principal(1K -1M):");
+            principal =input.nextInt();
+            if(principal >= 1000 && principal <= 1000000)
+                break;
+            System.out.println("Enter a number between 1,000 and 1,000,000.");
+        }
 
-        System.out.println("Period(years): ");
-        byte years = input.nextByte();
-        int numberOfPayments = years *Months_In_YEAR;
+        while(true) {
+            System.out.println("Annual Interest Rate: ");
+            float annualInterest = input.nextFloat();
+            if(annualInterest > 0 && annualInterest <=30) {
+                monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
+                break;
+            }
+            System.out.println(
+                    "Enter a value greater than 0 and less than 30."
+            );
+        }
+
+        while(true) {
+            System.out.println("Period(years): ");
+            byte years = input.nextByte();
+            if(years >=1 && years <=30){
+                numberOfPayments = years * Months_In_YEAR;
+                    break;
+            }
+            System.out.println(
+                    "Enter a value between 1 and 30. "
+            );
+        }
 
 
         double mortgage = principal

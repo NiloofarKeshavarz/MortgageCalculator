@@ -8,15 +8,28 @@ public class Main {
         byte years ;
         float annualInterest;
 
-        principal = (int)readNumber("Principal" , 1000 , 1000000);
+        principal = (int)readNumber("Principal(1K - 1M): " , 1000 , 1000000);
         annualInterest = (float)readNumber("Annual Interest Rate: " , 1 , 30);
         years = (byte)readNumber("Years: " , 1 , 30);
 
         double mortgage = calculateMortgage(principal , annualInterest , years);
 
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
+        System.out.println();
+        System.out.println("MORTGAGE");
+        System.out.println("-----------");
         System.out.println("Monthly Payment: " + mortgageFormatted);
-    }
+
+        System.out.println();
+        System.out.println("PAYMENT SCHEDULE");
+        System.out.println("-----------");
+
+        for(byte month = 1 ; month <= years * Months_In_YEAR ;month ++){
+            double balance = calculateBalance(principal, annualInterest ,years ,month);
+            String balanceFormatted = NumberFormat.getCurrencyInstance().format(balance);
+            System.out.println(balanceFormatted);
+        }
+            }
     public static double readNumber(String prompt , double min , double max){
         double value;
         while(true) {

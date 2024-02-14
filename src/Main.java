@@ -1,6 +1,8 @@
 import java.text.NumberFormat;
 import java.util.Scanner;
 public class Main {
+    final static byte Months_In_YEAR = 12;
+    final  static byte PERCENT = 100;
     public static void main(String[] args) {
         int principal ;
         byte years ;
@@ -32,8 +34,6 @@ public class Main {
             float annualInterest,
             byte years
     ){
-        final byte Months_In_YEAR = 12;
-        final byte PERCENT = 100;
         short numberOfPayments = (short)(years * Months_In_YEAR);
         float monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
 
@@ -41,5 +41,22 @@ public class Main {
                 * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
                 / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
         return mortgage;
+    }
+
+    public static double calculateBalance(
+            int principal ,
+            float annualInterest,
+            byte years,
+            byte  numberOfPaymentMade
+
+    ){
+        short numberOfPayments = (short)(years * Months_In_YEAR);
+        float monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
+
+        double balance = principal *
+                ((Math.pow((1 + monthlyInterest) , numberOfPayments) - Math.pow((1 + monthlyInterest),numberOfPaymentMade))
+                        /(Math.pow((1 + monthlyInterest) , numberOfPayments) - 1));
+
+        return balance;
     }
 }

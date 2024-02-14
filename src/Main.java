@@ -55,7 +55,7 @@ public class Main {
     ){
         final byte Months_In_YEAR = 12;
         final byte PERCENT = 100;
-        float numberOfPayments = years * Months_In_YEAR;
+        short numberOfPayments = (short)(years * Months_In_YEAR);
         float monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
 
         double mortgage = principal

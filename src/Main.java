@@ -14,22 +14,30 @@ public class Main {
 
         double mortgage = calculateMortgage(principal , annualInterest , years);
 
+        printMortgagePayment(mortgage);
+        printPaymentSchedule(years, principal, annualInterest);
+    }
+
+    private static void printMortgagePayment(double mortgage) {
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println();
         System.out.println("MORTGAGE");
         System.out.println("-----------");
         System.out.println("Monthly Payment: " + mortgageFormatted);
+    }
 
+    private static void printPaymentSchedule(byte years, int principal, float annualInterest) {
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("-----------");
 
-        for(byte month = 1 ; month <= years * Months_In_YEAR ;month ++){
-            double balance = calculateBalance(principal, annualInterest ,years ,month);
+        for(byte month = 1; month <= years * Months_In_YEAR ; month ++){
+            double balance = calculateBalance(principal, annualInterest, years,month);
             String balanceFormatted = NumberFormat.getCurrencyInstance().format(balance);
             System.out.println(balanceFormatted);
         }
-            }
+    }
+
     public static double readNumber(String prompt , double min , double max){
         double value;
         while(true) {

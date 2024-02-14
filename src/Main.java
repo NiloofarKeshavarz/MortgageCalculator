@@ -5,15 +5,15 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        final byte Months_In_YEAR = 12;
-        final byte PERCENT = 100;
-        int principal ;
-        float monthlyInterest;
-        int numberOfPayments;
 
+
+        int principal ;
+        byte years;
+        float annualInterest;
+
+      //  int paymentMade = 0;
 
         Scanner input = new Scanner(System.in);
-
         while(true){
             System.out.println("Principal(1K -1M):");
             principal =input.nextInt();
@@ -24,11 +24,9 @@ public class Main {
 
         while(true) {
             System.out.println("Annual Interest Rate: ");
-            float annualInterest = input.nextFloat();
-            if(annualInterest > 0 && annualInterest <=30) {
-                monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
+            annualInterest = input.nextFloat();
+            if(annualInterest > 0 && annualInterest <=30)
                 break;
-            }
             System.out.println(
                     "Enter a value greater than 0 and less than 30."
             );
@@ -36,24 +34,33 @@ public class Main {
 
         while(true) {
             System.out.println("Period(years): ");
-            byte years = input.nextByte();
-            if(years >=1 && years <=30){
-                numberOfPayments = years * Months_In_YEAR;
+            years = input.nextByte();
+            if(years >=1 && years <=30)
                     break;
-            }
-            System.out.println(
-                    "Enter a value between 1 and 30. "
-            );
+            System.out.println( "Enter a value between 1 and 30. ");
         }
 
+        double mortgage = calculateMortgage(principal , annualInterest , years);
+
+        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
+        System.out.println("MORTGAGE");
+        System.out.println( "------------");
+        System.out.println("Monthly Payment: " + mortgageFormatted);
+    }
+
+    public static double calculateMortgage(
+            int principal,
+            float annualInterest,
+            byte years
+    ){
+        final byte Months_In_YEAR = 12;
+        final byte PERCENT = 100;
+        float numberOfPayments = years * Months_In_YEAR;
+        float monthlyInterest = annualInterest/PERCENT /Months_In_YEAR;
 
         double mortgage = principal
                 * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
                 / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
-
-        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
-        System.out.println("Mortgage: " + mortgageFormatted);
-
-
+        return mortgage;
     }
 }
